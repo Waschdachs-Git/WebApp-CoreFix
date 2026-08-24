@@ -9,8 +9,7 @@ export function Pricing() {
   return (
     <Section
       id="preise"
-      step="07"
-      eyebrow="Geschäftsmodell"
+      eyebrow="Preise"
       title="Pakete & Preise"
       lead="Feste monatliche Pakete statt Stundenzettel. Sie wissen vorher, was IT kostet."
       align="center"
@@ -43,6 +42,9 @@ export function Pricing() {
             )}
 
             <h3 className="font-display text-2xl font-bold text-foreground">{plan.name}</h3>
+            {/* Sagt vor dem Preis, für wen das Paket gedacht ist — sonst muss
+                die Leserin das aus der Feature-Liste rückwärts erschließen. */}
+            <p className="mt-2 text-[15px] leading-relaxed text-muted">{plan.summary}</p>
 
             <Surface depth="inset" radius="md" className="mt-6 px-6 py-6 text-center">
               <p className="font-display text-4xl font-extrabold leading-none text-accent">

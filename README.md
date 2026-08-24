@@ -1,7 +1,11 @@
 # CoreFix — Website
 
 One-page-Website für die **CoreFix GmbH**, inhaltlich auf Basis des Businessplan-Pitchdecks
-(12 Slides) und umgesetzt im **Neumorphism / Soft-UI**-Designsystem.
+und umgesetzt im **Neumorphism / Soft-UI**-Designsystem.
+
+Die Seite richtet sich an KMU-Entscheider, die einen IT-Partner suchen — nicht an Leser des
+Businessplans. Abschnitte des Decks, die nur Investoren oder Prüfer interessieren, stehen
+deshalb bewusst nicht auf der Website (siehe *Inhaltliche Auswahl*).
 
 ```bash
 npm install
@@ -33,7 +37,7 @@ src/
 │  │                       Field/Input/Textarea, Eyebrow, RatingDot
 │  ├─ layout/              Container, Section, Header, Footer
 │  ├─ decor/               Logo, NestedDepth (Hero-Grafik)
-│  └─ sections/            Die zwölf Seitenabschnitte
+│  └─ sections/            Die zehn Seitenabschnitte
 └─ assets/                 CoreFix-Logo (freigestellt aus dem Pitchdeck)
 ```
 
@@ -55,6 +59,32 @@ aus der Fläche heraus- oder in sie hineinragt (`raised`, `raisedSm`, `inset`,
 **3. Inhalt ist von Darstellung getrennt.**
 `data/content.ts` hält jeden Satz aus dem Pitchdeck. Die Section-Komponenten sind rein
 präsentational — Textänderungen fassen kein Layout an.
+
+## Inhaltliche Auswahl
+
+Das Pitchdeck und die Website haben verschiedene Leser. Aus dem Deck **nicht übernommen**:
+
+| Deck-Folie | Grund |
+|---|---|
+| SWOT-Analyse | „Noch keine Referenzen", „begrenzte Kapazität", „Abhängigkeit von wenigen Kunden" — auf einer Verkaufsseite schadet das aktiv. |
+| Zielgruppe & Markt | Marktgrößen (99 % / 21 % / 52 %) belegen Investoren die Chance. Der Kunde erfährt daraus nichts über sich. |
+| Rechtsform: GmbH | Stammkapital und §§ GmbHG begründen die Wahl der Rechtsform gegenüber Prüfern, nicht gegenüber Kunden. |
+| Vision & Ausblick | Wachstums- und Teamziele sind Investorenthemen. NIS-2 war der einzige kundennahe Punkt und steckt jetzt in der IT-Sicherheitsberatung. |
+| Foliennummern (01–10) | Kodierten die Deck-Reihenfolge. Auf der Website tragen sie keine Information mehr. |
+
+**Ergänzt**, weil es für die Kaufentscheidung fehlte:
+
+- **So starten wir** — vier Schritte vom Erstgespräch bis zur Übernahme. Die Sorge vor dem
+  Umstellungsaufwand ist der häufigste Grund, den IT-Partner nicht zu wechseln.
+- **Häufige Fragen** — sechs Einwände vorab beantwortet, u. a. Wechselaufwand, Vertretung im
+  Urlaub und ob ein Paket Pflicht ist.
+- **Paket-Kurzbeschreibungen** — sagen vor dem Preis, für wen ein Paket gedacht ist.
+
+Das Team steht jetzt als **Rollen ohne Namen** auf der Seite. Die `[Name]`-Platzhalter des Decks
+wirkten auf einer Live-Seite unfertig; die Aussage „Sie wissen, wen Sie anrufen" trägt auch ohne
+sie. Sobald echte Namen und Fotos vorliegen, gehören sie hierhin.
+
+Nichts davon ist verloren — der vollständige Deck-Inhalt steht in der Git-Historie.
 
 ## Gestalterische Entscheidungen
 
@@ -103,5 +133,9 @@ seiner Absicht.
   Sobald ein Endpunkt existiert, muss nur `handleSubmit` in
   `src/components/sections/Contact.tsx` auf einen `POST` umgestellt werden — das Markup
   bleibt unverändert.
-- **Platzhalter aus dem Pitchdeck** sind bewusst übernommen: Teamnamen (`[Name]`),
-  Musteradresse und Telefonnummer.
+- **Platzhalter aus dem Pitchdeck**: Musteradresse und Telefonnummer im Kontaktbereich sind
+  weiterhin Beispieldaten und müssen vor dem Livegang ersetzt werden.
+- **Zahlen in den FAQ-Antworten** stammen aus dem Deck (79 €/Stunde, Leistungsumfang der
+  Pakete). Formulierungen zu Erreichbarkeit und Wechselablauf sind bewusst unverbindlich
+  gehalten und im Erstgespräch zu konkretisieren — hier steht bewusst keine Zusage, die
+  das Unternehmen noch nicht gegeben hat.

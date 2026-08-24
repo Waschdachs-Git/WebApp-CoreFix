@@ -5,12 +5,10 @@ import { Pitch } from '@/components/sections/Pitch'
 import { Problem } from '@/components/sections/Problem'
 import { Services } from '@/components/sections/Services'
 import { Usp } from '@/components/sections/Usp'
-import { Market } from '@/components/sections/Market'
-import { Swot } from '@/components/sections/Swot'
-import { Pricing } from '@/components/sections/Pricing'
 import { Team } from '@/components/sections/Team'
-import { Legal } from '@/components/sections/Legal'
-import { Vision } from '@/components/sections/Vision'
+import { Process } from '@/components/sections/Process'
+import { Pricing } from '@/components/sections/Pricing'
+import { Faq } from '@/components/sections/Faq'
 import { Contact } from '@/components/sections/Contact'
 import { Surface } from '@/components/ui/Surface'
 
@@ -31,18 +29,19 @@ export default function App() {
 
       <Header />
 
+      {/* Reihenfolge folgt der Kaufentscheidung: Aufhänger, Einordnung, das
+          eigene Problem wiedererkennen, Angebot, Abgrenzung, Vertrauen,
+          Ablauf, Preis, letzte Einwände, Kontakt. */}
       <main id="hauptinhalt">
         <Hero />
         <Pitch />
         <Problem />
         <Services />
         <Usp />
-        <Market />
-        <Swot />
-        <Pricing />
         <Team />
-        <Legal />
-        <Vision />
+        <Process />
+        <Pricing />
+        <Faq />
         <Contact />
       </main>
 

@@ -7,10 +7,9 @@ export function Problem() {
   return (
     <Section
       id="problem"
-      step="02"
-      eyebrow="Problem"
-      title="Das Problem"
-      lead="Kleine und mittelständische Betriebe stehen bei der IT vor denselben vier Hürden — und keine der üblichen Antworten löst sie wirklich."
+      eyebrow="Bekannt?"
+      title="Woran es meistens hakt"
+      lead="Vier Situationen, die wir in fast jedem Betrieb ohne eigene IT-Abteilung antreffen."
     >
       <ul className="grid gap-8 md:grid-cols-2 md:gap-10">
         {problems.map(({ icon, title, text }) => (

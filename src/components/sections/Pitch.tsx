@@ -8,9 +8,8 @@ export function Pitch() {
   return (
     <Section
       id="ueber-uns"
-      step="01"
-      eyebrow="Elevator Pitch"
-      title="Was CoreFix macht"
+      eyebrow="Über CoreFix"
+      title="Ihre IT in festen Händen"
       lead={pitch.lead}
       align="center"
     >
