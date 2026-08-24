@@ -1,6 +1,6 @@
 # CoreFix — Website
 
-One-page-Website für die **CoreFix GmbH**, inhaltlich auf Basis des Businessplan-Pitchdecks
+One-page-Website für die **CoreFix GmbH** https://waschdachs-git.github.io/WebApp-CoreFix/, inhaltlich auf Basis des Businessplan-Pitchdecks
 und umgesetzt im **Neumorphism / Soft-UI**-Designsystem.
 
 Die Seite richtet sich an KMU-Entscheider, die einen IT-Partner suchen — nicht an Leser des
