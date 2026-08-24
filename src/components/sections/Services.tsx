@@ -7,9 +7,8 @@ export function Services() {
   return (
     <Section
       id="leistungen"
-      step="03"
-      eyebrow="Lösung"
-      title="Unser Leistungsangebot"
+      eyebrow="Leistungen"
+      title="Alles aus einer Hand"
       lead="Von der Störung um 8 Uhr morgens bis zur Sicherheitsstrategie fürs Jahr — alles aus einer Hand, mit einem Ansprechpartner."
     >
       <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

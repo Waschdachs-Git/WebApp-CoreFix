@@ -10,8 +10,7 @@ export function Usp() {
   return (
     <Section
       id="warum"
-      step="04"
-      eyebrow="USP"
+      eyebrow="Im Vergleich"
       title="Warum CoreFix?"
       lead="Systemhaus oder Freelancer — beide Modelle haben blinde Flecken. CoreFix ist genau dort stark, wo beide schwächeln."
     >

@@ -1,28 +1,22 @@
 import {
   BadgeCheck,
-  Briefcase,
-  Building2,
   Calculator,
+  ClipboardCheck,
   Cloud,
   DatabaseBackup,
   Globe,
   Handshake,
   Headset,
-  Landmark,
-  Lightbulb,
   Mail,
   MapPin,
+  MessagesSquare,
   MonitorSmartphone,
   Network,
   Phone,
   Receipt,
-  Rocket,
-  Scale,
   ServerCrash,
   ShieldAlert,
   ShieldCheck,
-  Target,
-  TrendingUp,
   UserCog,
   UserRound,
   Users,
@@ -31,8 +25,13 @@ import {
 } from 'lucide-react'
 
 /**
- * Every word on the site comes from the CoreFix pitch deck and lives here.
- * Sections stay purely presentational, so copy edits never touch layout code.
+ * Alle Texte der Seite an einem Ort. Die Section-Komponenten bleiben rein
+ * präsentational, damit Textänderungen kein Layout anfassen.
+ *
+ * Zielgruppe ist der KMU-Entscheider, der einen IT-Partner sucht — nicht der
+ * Leser des Businessplans. Inhalte, die nur Investoren oder Prüfer
+ * interessieren (Marktzahlen, SWOT, Rechtsformbegründung, Wachstumsziele),
+ * gehören deshalb bewusst nicht auf diese Seite.
  */
 
 export const company = {
@@ -40,23 +39,25 @@ export const company = {
   legalName: 'CoreFix GmbH',
   tagline: 'IT, die einfach läuft.',
   subline: 'Ihr IT-Partner für kleine und mittelständische Unternehmen',
-  kicker: 'Businessplan · Pitch Deck',
+  kicker: 'Remote & vor Ort · Feste Monatspreise',
 } as const
 
 export const nav = [
   { href: '#leistungen', label: 'Leistungen' },
   { href: '#warum', label: 'Warum CoreFix' },
-  { href: '#markt', label: 'Markt' },
+  { href: '#ablauf', label: 'Ablauf' },
   { href: '#preise', label: 'Preise' },
-  { href: '#team', label: 'Team' },
+  { href: '#faq', label: 'Fragen' },
   { href: '#kontakt', label: 'Kontakt' },
 ] as const
 
-/* 01 — Elevator Pitch ---------------------------------------------------- */
+export type Feature = { icon: LucideIcon; title: string; text: string }
+
+/* Was CoreFix macht ------------------------------------------------------ */
 
 export const pitch = {
   lead: 'CoreFix übernimmt die IT-Betreuung für kleine und mittelständische Unternehmen — zuverlässig, persönlich und ohne Fachchinesisch.',
-  body: 'So können sich unsere Kunden auf ihr Kerngeschäft konzentrieren, während wir für laufende und sichere Systeme sorgen.',
+  body: 'So können Sie sich auf Ihr Kerngeschäft konzentrieren, während wir für laufende und sichere Systeme sorgen.',
   pillars: [
     {
       icon: ShieldCheck,
@@ -76,34 +77,32 @@ export const pitch = {
   ],
 } satisfies { lead: string; body: string; pillars: readonly Feature[] }
 
-/* 02 — Problem ----------------------------------------------------------- */
-
-export type Feature = { icon: LucideIcon; title: string; text: string }
+/* Problem ---------------------------------------------------------------- */
 
 export const problems: readonly Feature[] = [
   {
     icon: Users,
-    title: 'Keine eigene IT-Abteilung',
-    text: 'Fachkräftemangel und Kosten machen eine eigene IT-Abteilung für die meisten KMU unrealistisch.',
+    title: 'Niemand ist wirklich zuständig',
+    text: 'Eine eigene IT-Abteilung lohnt sich nicht — also macht es nebenbei, wer sich am ehesten auskennt.',
   },
   {
     icon: ServerCrash,
-    title: 'IT-Ausfälle kosten Zeit & Geld',
-    text: 'Ein Systemausfall legt oft den ganzen Betrieb lahm – jede Stunde zählt.',
-  },
-  {
-    icon: Building2,
-    title: 'Große Systemhäuser',
-    text: 'Oft teuer, langsam und ohne festen persönlichen Ansprechpartner.',
+    title: 'Ein Ausfall legt den Betrieb lahm',
+    text: 'Steht die IT, steht die Arbeit. Und jede Stunde kostet Sie bares Geld.',
   },
   {
     icon: UserRound,
-    title: 'Einzelne Freelancer',
-    text: 'Im Urlaub oder Krankheitsfall oft nicht erreichbar, keine Vertretung.',
+    title: 'Der Freelancer ist gerade im Urlaub',
+    text: 'Einzelkämpfer sind günstig — bis sie ausfallen und niemand einspringt.',
+  },
+  {
+    icon: Wallet,
+    title: 'Die Rechnung überrascht jedes Mal',
+    text: 'Stundenweise Abrechnung ohne Vertrag macht IT-Kosten unplanbar.',
   },
 ]
 
-/* 03 — Lösung ------------------------------------------------------------ */
+/* Leistungen ------------------------------------------------------------- */
 
 export const services: readonly Feature[] = [
   {
@@ -139,13 +138,12 @@ export const services: readonly Feature[] = [
   {
     icon: ShieldAlert,
     title: 'IT-Sicherheitsberatung',
-    text: 'Schutz vor aktuellen Bedrohungen, verständlich erklärt.',
+    text: 'Schutz vor aktuellen Bedrohungen, verständlich erklärt — inklusive Themen wie NIS-2.',
   },
 ]
 
-/* 04 — USP --------------------------------------------------------------- */
+/* Warum CoreFix ---------------------------------------------------------- */
 
-/** Three-step rating taken from the deck's legend. */
 export type Rating = 'stark' | 'teilweise' | 'eingeschraenkt'
 
 export const ratingLabel: Record<Rating, string> = {
@@ -164,80 +162,63 @@ export const comparison: readonly { criterion: string; values: readonly Rating[]
   { criterion: 'Regionale Nähe', values: ['teilweise', 'stark', 'stark'] },
 ]
 
-/* 05 — Markt ------------------------------------------------------------- */
+/* Ihre Ansprechpartner --------------------------------------------------- */
 
-export const market = {
-  points: [
-    'Zielgruppe: kleine und mittelständische Unternehmen ohne eigene IT-Abteilung, regional.',
-    'Digitalisierung und Fachkräftemangel verstärken den Bedarf an externem IT-Support.',
-  ],
-  stats: [
-    { value: '99', unit: '%', label: 'aller Unternehmen in Deutschland sind KMU' },
-    { value: '21', unit: '%', label: 'der KMU beschäftigen eigene IT-Fachkräfte' },
-    { value: '52', unit: '%', label: 'der KMU nutzen bereits kostenpflichtige Cloud-Dienste' },
-  ],
-  sources: 'Quellen: Bundesnetzagentur / Destatis; IfM Bonn (2024)',
-} as const
-
-/* 06 — SWOT -------------------------------------------------------------- */
-
-export type SwotTone = 'positive' | 'caution'
-
-export const swot: readonly {
-  icon: LucideIcon
-  title: string
-  tone: SwotTone
-  items: readonly string[]
-}[] = [
+export const team: readonly { icon: LucideIcon; role: string; focus: string }[] = [
   {
-    icon: BadgeCheck,
-    title: 'Stärken',
-    tone: 'positive',
-    items: [
-      'Persönlicher, fester Ansprechpartner',
-      'Transparente Festpreis-Pakete',
-      'Schnelle Reaktionszeiten',
-      'Modernes, digitales Auftreten',
-    ],
+    icon: UserCog,
+    role: 'Technik & Support',
+    focus: 'Nimmt Ihre Störung an, per Fernwartung oder vor Ort — und kümmert sich um die laufende Wartung.',
   },
   {
-    icon: Target,
-    title: 'Schwächen',
-    tone: 'caution',
-    items: [
-      'Neu am Markt, noch keine Referenzen',
-      'Kleines Team zu Beginn → begrenzte Kapazität',
-      'Zunächst regional begrenzter Radius',
-    ],
+    icon: Handshake,
+    role: 'Beratung & Betreuung',
+    focus: 'Ihr fester Ansprechpartner für Angebote, Paketwechsel und alles, was darüber hinausgeht.',
   },
   {
-    icon: TrendingUp,
-    title: 'Chancen',
-    tone: 'positive',
-    items: [
-      'Wachsender IT-Bedarf durch Digitalisierung',
-      'Viele KMU ohne eigene IT-Abteilung',
-      'Fachkräftemangel bei Kunden verstärkt Nachfrage',
-    ],
+    icon: ShieldCheck,
+    role: 'IT-Sicherheit',
+    focus: 'Prüft Backups und Schutzmaßnahmen und meldet sich, bevor daraus ein Problem wird.',
   },
   {
-    icon: ShieldAlert,
-    title: 'Risiken',
-    tone: 'caution',
-    items: [
-      'Preisdruck durch größere Wettbewerber',
-      'Zu Beginn Abhängigkeit von wenigen Kunden',
-      'Schnelle technologische Veränderungen',
-    ],
+    icon: Calculator,
+    role: 'Verwaltung',
+    focus: 'Rechnungen, Termine und Organisation — damit Sie dafür niemanden suchen müssen.',
   },
 ]
 
-/* 07 — Geschäftsmodell --------------------------------------------------- */
+/* Ablauf ----------------------------------------------------------------- */
+
+export const process: readonly { icon: LucideIcon; title: string; text: string }[] = [
+  {
+    icon: MessagesSquare,
+    title: 'Erstgespräch',
+    text: 'Wir hören zu: Wie ist Ihre IT heute aufgestellt, wo klemmt es, was steht an. Unverbindlich.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Bestandsaufnahme',
+    text: 'Wir sehen uns Arbeitsplätze, Netzwerk, Backup und Sicherheit an und halten den Ist-Zustand fest.',
+  },
+  {
+    icon: Receipt,
+    title: 'Festes Angebot',
+    text: 'Sie bekommen das passende Paket mit klarem Monatspreis — keine Schätzung, die später wächst.',
+  },
+  {
+    icon: BadgeCheck,
+    title: 'Übernahme',
+    text: 'Wir übernehmen die Betreuung Schritt für Schritt, während Ihr Tagesgeschäft weiterläuft.',
+  },
+]
+
+/* Preise ----------------------------------------------------------------- */
 
 export const plans: readonly {
   name: string
   price: string
   period: string
+  summary: string
   features: readonly string[]
   featured?: boolean
   badge?: string
@@ -246,12 +227,14 @@ export const plans: readonly {
     name: 'Basic',
     price: 'ca. 149 €',
     period: '/ Monat',
+    summary: 'Für Betriebe, bei denen selten etwas anfällt.',
     features: ['Remote-Support (Geschäftszeiten)', 'Monatlicher Systemcheck', 'E-Mail-Support'],
   },
   {
     name: 'Plus',
     price: 'ca. 299 €',
     period: '/ Monat',
+    summary: 'Für Betriebe, die auf ihre IT angewiesen sind.',
     badge: 'Beliebt',
     featured: true,
     features: [
@@ -265,81 +248,45 @@ export const plans: readonly {
     name: 'Premium',
     price: 'ca. 549 €',
     period: '/ Monat',
-    features: ['Alles aus Plus', '24/7-Notfallsupport', 'IT-Sicherheitsberatung', 'Feste Wartungstermine'],
+    summary: 'Für Betriebe, bei denen Stillstand keine Option ist.',
+    features: [
+      'Alles aus Plus',
+      '24/7-Notfallsupport',
+      'IT-Sicherheitsberatung',
+      'Feste Wartungstermine',
+    ],
   },
 ]
 
 export const pricingNote =
-  'Einzelaufträge & Projekte: ca. 79 €/Stunde · Alle Preise als Richtwert, finale Kalkulation folgt im Finanzplan.'
+  'Einzelaufträge und Projekte rechnen wir mit ca. 79 €/Stunde ab. Der genaue Paketpreis hängt von der Anzahl Ihrer Arbeitsplätze ab — im Erstgespräch bekommen Sie ein festes Angebot.'
 
-/* 08 — Team -------------------------------------------------------------- */
+/* Häufige Fragen --------------------------------------------------------- */
 
-export const team: readonly { icon: LucideIcon; role: string; name: string; focus: string }[] = [
+export const faq: readonly { q: string; a: string }[] = [
   {
-    icon: Briefcase,
-    role: 'Geschäftsführung',
-    name: '[Name]',
-    focus: 'Strategie, Finanzen, Kundenbeziehungen',
+    q: 'Wir haben schon einen IT-Dienstleister. Ist ein Wechsel aufwendig?',
+    a: 'Nein. Wir übernehmen die Betreuung im laufenden Betrieb und stimmen die Übergabe so ab, dass bei Ihnen nichts stillsteht. Was dafür konkret nötig ist, klären wir im Erstgespräch.',
   },
   {
-    icon: UserCog,
-    role: 'Technik & Support',
-    name: '[Name]',
-    focus: 'Vor-Ort- & Remote-Support, Wartung',
+    q: 'Was passiert, wenn unser Ansprechpartner im Urlaub ist?',
+    a: 'Dann übernimmt jemand aus dem Team, der Ihren Betrieb kennt. Genau dafür sind wir ein Team und keine Einzelperson — Ihre Anfrage bleibt nicht liegen.',
   },
   {
-    icon: Handshake,
-    role: 'Vertrieb & Kundenbetreuung',
-    name: '[Name]',
-    focus: 'Neukundengewinnung, Beratung',
+    q: 'Müssen wir ein Paket buchen?',
+    a: 'Nein. Einzelaufträge und Projekte rechnen wir mit ca. 79 €/Stunde ab. Ein Paket lohnt sich, sobald regelmäßig etwas anfällt — dann sind Ihre IT-Kosten planbar.',
   },
   {
-    icon: Calculator,
-    role: 'Verwaltung',
-    name: '[Name]',
-    focus: 'Buchhaltung, Organisation, Termine',
+    q: 'Wie schnell sind Sie erreichbar?',
+    a: 'Im Basic-Paket per E-Mail und Fernwartung zu Geschäftszeiten. Plus stellt Ihre Anfragen vorrangig ein, Premium enthält zusätzlich einen Notfallkontakt rund um die Uhr.',
   },
-]
-
-/* 09 — Rechtsform -------------------------------------------------------- */
-
-export const legal = {
-  points: [
-    {
-      icon: Scale,
-      title: 'Haftungsbeschränkung',
-      text: 'Gesellschafter haften nicht mit ihrem Privatvermögen.',
-    },
-    {
-      icon: BadgeCheck,
-      title: 'Seriöses Auftreten',
-      text: 'Professionelle Außenwirkung gegenüber B2B-Kunden.',
-    },
-    {
-      icon: Landmark,
-      title: 'Handelsregister',
-      text: 'Eintragung ins Handelsregister erforderlich.',
-    },
-  ],
-  capital: {
-    value: '25.000 €',
-    label: 'gesetzliches Mindest-Stammkapital (§ 5 GmbHG)',
-    note: '— davon mind. 12.500 € bei Gründung als Bareinlage (§ 7 GmbHG)',
-  },
-} satisfies {
-  points: readonly Feature[]
-  capital: { value: string; label: string; note: string }
-}
-
-/* 10 — Vision ------------------------------------------------------------ */
-
-export const vision: readonly { icon: LucideIcon; text: string }[] = [
-  { icon: MapPin, text: 'Regionales Wachstum und Ausbau des Kundenstamms' },
-  { icon: Users, text: 'Vergrößerung des Teams' },
-  { icon: Lightbulb, text: 'Spezialisierung, z. B. Cybersecurity für KMU (Stichwort NIS-2)' },
   {
-    icon: Rocket,
-    text: 'Langfristig soll CoreFix zur festen Größe für IT-Support im regionalen Mittelstand werden',
+    q: 'Kommen Sie auch in den Betrieb?',
+    a: 'Ja. Vieles lässt sich per Fernwartung lösen — wenn nicht, kommen wir vorbei. Vor-Ort-Support ist ab dem Plus-Paket enthalten.',
+  },
+  {
+    q: 'Wie groß muss unser Betrieb sein?',
+    a: 'Wir arbeiten mit kleinen und mittelständischen Unternehmen ohne eigene IT-Abteilung. Ob fünf oder fünfzig Arbeitsplätze — entscheidend ist, dass sich sonst niemand zuständig fühlt.',
   },
 ]
 
@@ -357,4 +304,4 @@ export const contact: readonly {
   { icon: Globe, label: 'Web', value: 'www.corefix.de', href: 'https://www.corefix.de' },
 ]
 
-export const footerNote = `© ${new Date().getFullYear()} ${company.legalName} — Businessplan`
+export const footerNote = `© ${new Date().getFullYear()} ${company.legalName}`

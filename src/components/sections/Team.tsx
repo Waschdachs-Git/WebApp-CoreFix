@@ -7,18 +7,16 @@ export function Team() {
   return (
     <Section
       id="team"
-      step="08"
-      eyebrow="Team"
-      title="Unser Team"
-      lead="Vier Rollen, klar verteilt — damit jeder Kunde weiß, wer für was zuständig ist."
+      eyebrow="Ihr Team"
+      title="Sie wissen, wen Sie anrufen"
+      lead="Bei uns landen Sie nicht in einer Warteschlange. Vier Rollen, klar verteilt — und ein fester Ansprechpartner, der Ihren Betrieb kennt."
     >
       <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {team.map(({ icon, role, name, focus }) => (
-          <Card as="li" key={role} interactive className="flex flex-col items-center p-8 text-center">
+        {team.map(({ icon, role, focus }) => (
+          <Card as="li" key={role} interactive className="flex flex-col p-8">
             <IconWell icon={icon} size="lg" className="rounded-full" />
-            <p className="mt-7 font-display text-lg font-bold text-foreground">{name}</p>
-            <p className="mt-1.5 text-sm font-semibold text-accent">{role}</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-muted">{focus}</p>
+            <h3 className="mt-7 font-display text-lg font-bold text-foreground">{role}</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-muted">{focus}</p>
           </Card>
         ))}
       </ul>

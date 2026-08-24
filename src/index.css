@@ -41,7 +41,7 @@
 
   /* Focus is mandatory on every interactive element. The 2px offset is drawn
      in the surface colour so the ring reads as floating above the clay. */
-  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  :where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
     @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-surface;
   }
 

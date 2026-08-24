@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 
 type SectionProps = {
   id: string
-  step?: string
   eyebrow?: string
   title: ReactNode
   lead?: ReactNode
@@ -23,7 +22,6 @@ type SectionProps = {
  */
 export function Section({
   id,
-  step,
   eyebrow,
   title,
   lead,
@@ -36,7 +34,7 @@ export function Section({
     <section id={id} className={cn('py-20 md:py-28', className)}>
       <Container>
         <header className={cn('max-w-3xl', centered && 'mx-auto text-center')}>
-          {eyebrow && <Eyebrow step={step}>{eyebrow}</Eyebrow>}
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <h2 className="mt-6 font-display text-3xl font-extrabold leading-[1.1] text-foreground sm:text-4xl md:text-5xl">
             {title}
           </h2>
