@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* The single anchor offset for the whole page: sticky header height plus
+       a little air. Sections must NOT also carry scroll-mt — the two stack. */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-surface font-sans text-foreground antialiased;
+    /* Safety net for German compound nouns ("Haftungsbeschränkung",
+       "Wartungsverträge"): only kicks in when a word genuinely cannot fit. */
+    overflow-wrap: break-word;
+  }
+
+  /* Text leaves get both halves of the recipe. `hyphens: auto` does the nice
+     work — the document is lang="de", so browsers break compounds at real
+     syllable boundaries. `overflow-wrap: anywhere` is the guarantee: unlike
+     `break-word` it also shrinks the element's min-content width, so a long
+     compound can no longer force a flex or grid track wider than the screen
+     when a hyphenation dictionary is unavailable. Display headings are
+     excluded — their copy is short and set to fit. */
+  h3,
+  h4,
+  p,
+  li,
+  th,
+  td {
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+
+  /* Neumorphism defines every edge with shadows — never with borders. */
+  ::selection {
+    @apply bg-accent/20 text-foreground;
+  }
+
+  /* Focus is mandatory on every interactive element. The 2px offset is drawn
+     in the surface colour so the ring reads as floating above the clay. */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-surface;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
