@@ -15,11 +15,12 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // Website und A4-Portfolio teilen Tokens, Bausteine und Inhalte, werden
-      // aber als eigenständige Seiten ausgeliefert.
+      // Website, A4-Portfolio und Eröffnungswerbung teilen Tokens, Bausteine
+      // und Inhalte, werden aber als eigenständige Seiten ausgeliefert.
       input: {
         main: path.resolve(__dirname, 'index.html'),
         portfolio: path.resolve(__dirname, 'portfolio.html'),
+        eroeffnung: path.resolve(__dirname, 'eroeffnung.html'),
       },
     },
   },

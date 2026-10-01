@@ -1,33 +1,14 @@
-import { useEffect, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Check } from 'lucide-react'
 import { Surface } from '@/components/ui/Surface'
 import { IconWell } from '@/components/ui/IconWell'
 import { Logo } from '@/components/decor/Logo'
 import { NestedDepth } from '@/components/decor/NestedDepth'
-import { company, contact, pitch, plans, pricingNote, services } from '@/data/content'
-import { differentiators, facts, founders, market, vision, websiteUrl } from '@/data/profile'
-import qrUrl from '@/assets/qr-website.svg'
+import { company, formatPrice, pitch, plans, pricingNote, services } from '@/data/content'
+import { differentiators, facts, founders, market, vision } from '@/data/profile'
+import { ContactBand } from '@/components/print/ContactBand'
+import { useSheetZoom } from '@/components/print/useSheetZoom'
 import { cn } from '@/lib/utils'
-
-/** A4-Breite in CSS-Pixeln (210 mm bei 96 dpi). */
-const SHEET_WIDTH_PX = (210 / 25.4) * 96
-
-/**
- * Das Blatt behält auf jedem Bildschirm seine Druckgeometrie. Ist das Fenster
- * schmaler als A4, wird es als Ganzes verkleinert — ein Umbruch in Spalten
- * würde aus dem Dokument eine andere Seite machen.
- */
-function useFitSheetToViewport() {
-  useEffect(() => {
-    const fit = () => {
-      const zoom = Math.min(1, (window.innerWidth - 32) / SHEET_WIDTH_PX)
-      document.documentElement.style.setProperty('--sheet-zoom', zoom.toFixed(4))
-    }
-    fit()
-    window.addEventListener('resize', fit)
-    return () => window.removeEventListener('resize', fit)
-  }, [])
-}
 
 /**
  * Leichtgewichtiger Verwandter des Website-Eyebrows. Eingelassene Pillen über
@@ -216,7 +197,7 @@ function Packages() {
               radius="md"
               className="mt-2 flex items-baseline justify-center gap-1.5 py-1.5"
             >
-              <span className="font-display text-[19px] font-extrabold text-accent">{plan.price}</span>
+              <span className="font-display text-[19px] font-extrabold text-accent">{formatPrice(plan.amount)}</span>
               <span className="text-[10.5px] text-muted">{plan.period}</span>
             </Surface>
 
@@ -242,69 +223,8 @@ function Packages() {
   )
 }
 
-function ContactBand() {
-  // "Web" entfällt: auf Papier übernimmt das der QR-Code, und der führt auf
-  // die tatsächlich erreichbare Website.
-  const items = contact.filter(({ label }) => label !== 'Web')
-  const shortUrl = websiteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
-  const [host, ...path] = shortUrl.split('/')
-
-  return (
-    <Surface
-      as="footer"
-      depth="inset"
-      radius="card"
-      // Keine Ligaturen bei Kontaktdaten: DM Sans setzt "fi" sonst als ein
-      // Zeichen (U+FB01), und wer die Mailadresse aus dem PDF kopiert, bekommt
-      // "coreﬁx.de" — eine Adresse, die kein Mailprogramm annimmt.
-      className="flex items-center gap-5 py-2.5 pl-5 pr-2.5 [font-variant-ligatures:none]"
-    >
-      <ul className="flex flex-1 items-center justify-between gap-4">
-        {items.map(({ icon: Icon, label, value }) => (
-          <li key={label} className="flex min-w-0 items-center gap-2.5">
-            {/* Im eingelassenen Band stehen die Symbole erhaben — die
-                Schichtung raised → inset → raised des Systems. */}
-            <Surface depth="raisedSm" radius="sm" className="grid h-8 w-8 shrink-0 place-items-center">
-              <Icon className="h-3.5 w-3.5 text-accent" strokeWidth={2} aria-hidden="true" />
-            </Surface>
-            <div className="min-w-0">
-              <p className="font-display text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
-                {label}
-              </p>
-              {/* Adresse darf am Komma umbrechen, Nummer und Mailadresse nie. */}
-              <p
-                className={cn(
-                  'text-[11.5px] font-medium leading-snug text-foreground',
-                  label !== 'Adresse' && 'whitespace-nowrap',
-                )}
-              >
-                {value}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <div className="flex items-center gap-3">
-        <div className="text-right">
-          <p className="font-display text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
-            Website
-          </p>
-          <p className="text-[10px] leading-snug text-foreground">
-            {host}
-            <br />/{path.join('/')}
-          </p>
-        </div>
-        <Surface depth="raisedSm" radius="sm" className="p-1">
-          <img src={qrUrl} alt={`QR-Code: ${shortUrl}`} className="block h-[58px] w-[58px]" />
-        </Surface>
-      </div>
-    </Surface>
-  )
-}
-
 export function Portfolio() {
-  useFitSheetToViewport()
+  useSheetZoom()
 
   return (
     <div className="sheet-stage flex min-h-screen justify-center px-4 py-8 md:py-14">
@@ -326,7 +246,7 @@ export function Portfolio() {
 
         <Services />
         <Packages />
-        <ContactBand />
+        <ContactBand size="sm" />
       </Surface>
     </div>
   )

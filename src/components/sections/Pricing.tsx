@@ -2,7 +2,7 @@ import { Check } from 'lucide-react'
 import { Section } from '@/components/layout/Section'
 import { Surface } from '@/components/ui/Surface'
 import { ButtonLink } from '@/components/ui/Button'
-import { plans, pricingNote } from '@/data/content'
+import { formatPrice, plans, pricingNote } from '@/data/content'
 import { cn } from '@/lib/utils'
 
 export function Pricing() {
@@ -48,7 +48,7 @@ export function Pricing() {
 
             <Surface depth="inset" radius="md" className="mt-6 px-6 py-6 text-center">
               <p className="font-display text-4xl font-extrabold leading-none text-accent">
-                {plan.price}
+                {formatPrice(plan.amount)}
               </p>
               <p className="mt-2 text-sm text-muted">{plan.period}</p>
             </Surface>

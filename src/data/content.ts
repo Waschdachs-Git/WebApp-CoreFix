@@ -214,9 +214,17 @@ export const process: readonly { icon: LucideIcon; title: string; text: string }
 
 /* Preise ----------------------------------------------------------------- */
 
+/**
+ * Richtpreise sind Näherungswerte, darum steht das "ca." beim Formatieren und
+ * nicht in den Daten: Gerechnet wird mit der Zahl (z. B. für den
+ * Eröffnungsrabatt), angezeigt wird überall dieselbe Schreibweise.
+ */
+export const formatPrice = (amount: number) => `ca. ${amount.toLocaleString('de-DE')} €`
+
 export const plans: readonly {
   name: string
-  price: string
+  /** Monatlicher Richtpreis in Euro. */
+  amount: number
   period: string
   summary: string
   features: readonly string[]
@@ -225,14 +233,14 @@ export const plans: readonly {
 }[] = [
   {
     name: 'Basic',
-    price: 'ca. 149 €',
+    amount: 149,
     period: '/ Monat',
     summary: 'Für Betriebe, bei denen selten etwas anfällt.',
     features: ['Remote-Support (Geschäftszeiten)', 'Monatlicher Systemcheck', 'E-Mail-Support'],
   },
   {
     name: 'Plus',
-    price: 'ca. 299 €',
+    amount: 299,
     period: '/ Monat',
     summary: 'Für Betriebe, die auf ihre IT angewiesen sind.',
     badge: 'Beliebt',
@@ -246,7 +254,7 @@ export const plans: readonly {
   },
   {
     name: 'Premium',
-    price: 'ca. 549 €',
+    amount: 549,
     period: '/ Monat',
     summary: 'Für Betriebe, bei denen Stillstand keine Option ist.',
     features: [

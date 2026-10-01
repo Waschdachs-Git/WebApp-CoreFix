@@ -1,0 +1,52 @@
+/*
+ * Zwei Motive auf einer Vorschauseite: Gedruckt wird nur das Plakat, exportiert
+ * werden beide einzeln (siehe README).
+ */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* Fläche und Schatten sind Inhalt — ohne diese Zeile lässt der Druckdialog
+   sie weg. */
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.artboard {
+  zoom: var(--sheet-zoom, 1);
+}
+
+/* Beim Export sind die Motive randlose Rechtecke: Instagram schneidet selbst
+   zu, und Papier hat keine runden Ecken. */
+html[data-export] .artboard {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Zentriert läge ein Motiv auf einem halben Pixel, und der Export würde nach
+   außen runden (1082 statt 1080 px). Links ausgerichtet sitzt es ganzzahlig. */
+html[data-export] .campaign-stage {
+  justify-content: flex-start;
+}
+
+@media print {
+  .campaign-stage {
+    display: block;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .board-post,
+  figcaption {
+    display: none;
+  }
+
+  .poster {
+    zoom: 1;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

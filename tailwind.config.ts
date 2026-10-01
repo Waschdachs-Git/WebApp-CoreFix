@@ -15,7 +15,7 @@ const dark = (a: number) => `rgba(163, 177, 198, ${a})`
 const light = (a: number) => `rgba(255, 255, 255, ${a})`
 
 export default {
-  content: ['./index.html', './portfolio.html', './src/**/*.{ts,tsx}'],
+  content: ['./index.html', './portfolio.html', './eroeffnung.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
