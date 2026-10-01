@@ -214,9 +214,17 @@ export const process: readonly { icon: LucideIcon; title: string; text: string }
 
 /* Preise ----------------------------------------------------------------- */
 
+/**
+ * Richtpreise sind Näherungswerte, darum steht das "ca." beim Formatieren und
+ * nicht in den Daten: Gerechnet wird mit der Zahl (z. B. für den
+ * Eröffnungsrabatt), angezeigt wird überall dieselbe Schreibweise.
+ */
+export const formatPrice = (amount: number) => `ca. ${amount.toLocaleString('de-DE')} €`
+
 export const plans: readonly {
   name: string
-  price: string
+  /** Monatlicher Richtpreis in Euro. */
+  amount: number
   period: string
   summary: string
   features: readonly string[]
@@ -225,14 +233,14 @@ export const plans: readonly {
 }[] = [
   {
     name: 'Basic',
-    price: 'ca. 149 €',
+    amount: 149,
     period: '/ Monat',
     summary: 'Für Betriebe, bei denen selten etwas anfällt.',
     features: ['Remote-Support (Geschäftszeiten)', 'Monatlicher Systemcheck', 'E-Mail-Support'],
   },
   {
     name: 'Plus',
-    price: 'ca. 299 €',
+    amount: 299,
     period: '/ Monat',
     summary: 'Für Betriebe, die auf ihre IT angewiesen sind.',
     badge: 'Beliebt',
@@ -246,7 +254,7 @@ export const plans: readonly {
   },
   {
     name: 'Premium',
-    price: 'ca. 549 €',
+    amount: 549,
     period: '/ Monat',
     summary: 'Für Betriebe, bei denen Stillstand keine Option ist.',
     features: [
@@ -298,12 +306,13 @@ export const contact: readonly {
   value: string
   href?: string
 }[] = [
-  { icon: MapPin, label: 'Adresse', value: 'Platinenweg 42, 10245 Berlin' },
+  { icon: MapPin, label: 'Adresse', value: 'Straße der Nationen 42, 09111 Chemnitz' },
   { icon: Mail, label: 'E-Mail', value: 'info@corefix.de', href: 'mailto:info@corefix.de' },
-  // Aus dem Block 030 23125 000–999, den die Bundesnetzagentur dauerhaft für
-  // fiktive Zwecke reserviert ("Drama Numbers"): unter dieser Nummer klingelt
-  // garantiert bei niemandem das Telefon.
-  { icon: Phone, label: 'Telefon', value: '030 23125 200', href: 'tel:+493023125200' },
+  // Vom Team festgelegt. Achtung: Für Chemnitz (0371) reserviert die
+  // Bundesnetzagentur keinen Block für fiktive Zwecke — diese Nummer kann einem
+  // echten Anschluss gehören. Ortsunabhängig reserviert wäre z. B. 0171 39200 42
+  // (Mitteilung 148/2021, Mobilfunkblock 0171 39200 00–99).
+  { icon: Phone, label: 'Telefon', value: '0371 23125 200', href: 'tel:+4937123125200' },
   { icon: Globe, label: 'Web', value: 'www.corefix.de', href: 'https://www.corefix.de' },
 ]
 

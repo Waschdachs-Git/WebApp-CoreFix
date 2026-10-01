@@ -36,18 +36,23 @@ npm run preview  # Produktions-Build lokal ansehen
 ```
 index.html                 Website
 portfolio.html             A4-Portfolio (zweiter Vite-Einstiegspunkt)
+eroeffnung.html            Eröffnungswerbung: Vorschau beider Motive
 public/CoreFix-Portfolio.pdf   Exportiertes Portfolio
+marketing/eroeffnung/      Exportierte Werbemotive und Begleittext
 src/
 ├─ index.css               Base-Layer: Fokus-Ringe, Scroll-Offset, Silbentrennung
 ├─ data/content.ts         Inhalte, die Website und Portfolio teilen
 ├─ data/profile.ts         Nur fürs Portfolio: Steckbrief, Gründer, Vision, Marktzahl
+├─ data/opening.ts         Texte und Rabattsatz der Eröffnungswerbung
 ├─ portfolio/              Das A4-Blatt und seine Druckregeln
+├─ eroeffnung/             Instagram-Post, Plakat, Einschaltknopf, Rabatt-Puck
 ├─ lib/utils.ts            cn() — clsx + tailwind-merge
 ├─ components/
 │  ├─ ui/                  Primitives: Surface, Button, Card, IconWell,
 │  │                       Field/Input/Textarea, Eyebrow, RatingDot
 │  ├─ layout/              Container, Section, Header, Footer
 │  ├─ decor/               Logo, NestedDepth (Hero-Grafik)
+│  ├─ print/               Für Druckvorlagen: Kontaktband, Skalierung
 │  └─ sections/            Die zehn Seitenabschnitte
 └─ assets/                 CoreFix-Logo (freigestellt aus dem Pitchdeck)
 ```
@@ -103,6 +108,39 @@ Das PDF im Repo wurde mit den **statischen** Schnitten der beiden Schriften erze
 sie als echte TrueType-Schriften eingebettet sind. Aus dem Browser-Druckdialog kommen die
 variablen Google-Fonts als Type3-Schriften heraus — optisch identisch, aber manche
 Druckereien bemängeln Type3 in der Vorprüfung.
+
+## Eröffnungswerbung
+
+Zwei Motive zur Neueröffnung, im selben Design. Vorschau beider Motive: `/eroeffnung.html`.
+
+| Datei | Format | Einsatz |
+|---|---|---|
+| `marketing/eroeffnung/CoreFix-Eroeffnung-Instagram.png` | 1080 × 1350 px (4:5) | Instagram-Feed, auch LinkedIn und Facebook |
+| `marketing/eroeffnung/CoreFix-Eroeffnung-Plakat.pdf` | A4 hoch | Plakat und Flyer |
+| `marketing/eroeffnung/instagram-text.txt` | Text | Begleittext zum Post |
+
+- **Bildidee: der Einschaltknopf.** Das bekannteste Zeichen der IT für „an“ — gebaut
+  aus der Schichtung des Systems, mit Akzentblau und einer kleinen Betriebs-LED.
+  Dazu die Überschrift „Wir sind online.“
+- **Das Angebot ist das einzige blau gefüllte Element.** Akzentblau ist im System dem
+  Call to Action vorbehalten, und hier ist der Rabatt der Call to Action.
+- **Der Rabatt ist eine Zahl** (`DISCOUNT` in `src/data/opening.ts`). Die Plakatpreise
+  werden aus den Paketpreisen in `content.ts` berechnet; ändert sich ein Preis oder der
+  Rabatt, stimmen beide Motive nach dem nächsten Export. Nur der Begleittext ist von Hand
+  geschrieben und muss dann mitgeändert werden.
+- **Kein Datum.** Angekündigt wird der Zustand („Neu in Chemnitz“), kein Termin.
+- **Der Post ist auf 540 × 675 gestaltet** und wird mit doppelter Pixeldichte exportiert.
+  So haben Schatten und Schrift die Proportionen, in denen das Bild auf dem Handy erscheint.
+
+### Motive neu exportieren
+
+1. `npm run build && npm run preview`, dann `/eroeffnung.html` in Chrome öffnen
+2. **Plakat:** Drucken → *Als PDF speichern*, A4, Ränder *Keine*, *Hintergrundgrafiken* an
+   (gedruckt wird automatisch nur das Plakat)
+3. **Post:** Entwicklertools öffnen, in der Konsole
+   `document.documentElement.setAttribute('data-export', '')` ausführen (eckig, ohne
+   Außenschatten), Gerätepixelverhältnis 2 einstellen, dann im Elements-Tab den Knoten
+   `section.post` rechtsklicken → *Screenshot des Knotens erstellen*
 
 ## Inhaltliche Auswahl
 
@@ -177,10 +215,12 @@ seiner Absicht.
   Sobald ein Endpunkt existiert, muss nur `handleSubmit` in
   `src/components/sections/Contact.tsx` auf einen `POST` umgestellt werden — das Markup
   bleibt unverändert.
-- **Fiktive Kontaktdaten.** Adresse (Platinenweg 42, 10245 Berlin) und Telefon sind
-  ausgedacht. Die Nummer stammt aus dem Block 030 23125 000–999, den die
-  Bundesnetzagentur dauerhaft für fiktive Zwecke reserviert — dort klingelt garantiert bei
-  niemandem das Telefon. Vor einem echten Livegang ersetzen, in `src/data/content.ts`.
+- **Kontaktdaten.** Sitz ist Chemnitz, Straße der Nationen 42, 09111 Chemnitz, Telefon
+  0371 23125 200 — beides vom Team festgelegt, zentral in `src/data/content.ts`.
+  **Achtung Telefon:** Für Chemnitz reserviert die Bundesnetzagentur keinen Nummernblock für
+  fiktive Zwecke (nur Berlin, Frankfurt, Hamburg, Köln, München; Mitteilung 148/2021). Die
+  Nummer kann daher einem echten Anschluss gehören. Ortsunabhängig reserviert und damit
+  gefahrlos druckbar wäre z. B. die Mobilnummer **0171 39200 42** (Block 0171 39200 00–99).
 - **Geschäftsführung** ist im Portfolio mit Natanael und Emil angegeben. Das ist eine
   Annahme für eine GmbH mit zwei Gründern — bei anderer Aufteilung `src/data/profile.ts`
   anpassen.
