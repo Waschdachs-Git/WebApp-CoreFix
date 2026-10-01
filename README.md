@@ -7,6 +7,12 @@ Die Seite richtet sich an KMU-Entscheider, die einen IT-Partner suchen — nicht
 Businessplans. Abschnitte des Decks, die nur Investoren oder Prüfer interessieren, stehen
 deshalb bewusst nicht auf der Website (siehe *Inhaltliche Auswahl*).
 
+Dazu gehört ein **einseitiges Unternehmensportfolio (A4)**, das Profil und Angebot auf einem
+Blatt verbindet — im selben Design, aus denselben Bausteinen und Inhalten:
+
+- Browser: https://waschdachs-git.github.io/WebApp-CoreFix/portfolio.html
+- PDF: https://waschdachs-git.github.io/WebApp-CoreFix/CoreFix-Portfolio.pdf
+
 ```bash
 npm install
 npm run dev      # Dev-Server
@@ -28,9 +34,14 @@ npm run preview  # Produktions-Build lokal ansehen
 ## Architektur
 
 ```
+index.html                 Website
+portfolio.html             A4-Portfolio (zweiter Vite-Einstiegspunkt)
+public/CoreFix-Portfolio.pdf   Exportiertes Portfolio
 src/
 ├─ index.css               Base-Layer: Fokus-Ringe, Scroll-Offset, Silbentrennung
-├─ data/content.ts         Sämtliche Inhalte des Pitchdecks, typisiert
+├─ data/content.ts         Inhalte, die Website und Portfolio teilen
+├─ data/profile.ts         Nur fürs Portfolio: Steckbrief, Gründer, Vision, Marktzahl
+├─ portfolio/              Das A4-Blatt und seine Druckregeln
 ├─ lib/utils.ts            cn() — clsx + tailwind-merge
 ├─ components/
 │  ├─ ui/                  Primitives: Surface, Button, Card, IconWell,
@@ -59,6 +70,39 @@ aus der Fläche heraus- oder in sie hineinragt (`raised`, `raisedSm`, `inset`,
 **3. Inhalt ist von Darstellung getrennt.**
 `data/content.ts` hält jeden Satz aus dem Pitchdeck. Die Section-Komponenten sind rein
 präsentational — Textänderungen fassen kein Layout an.
+
+## Unternehmensportfolio
+
+Ein A4-Blatt (hoch) für Businessplan, Präsentation und zum Mitgeben. Es zeigt bewusst
+*beides*: die Unternehmensangaben, die auf der Website fehlen (Gründung, Rechtsform,
+Stammkapital, Geschäftsführung, Vision, eine Marktzahl), und das Kundenangebot
+(Vorteile, Leistungen, Pakete, Kontakt).
+
+- **Eine Quelle für alles Geteilte.** Leistungen, Pakete und Kontakt kommen aus
+  `content.ts` — ändert sich ein Preis, ändern sich Website und Portfolio gemeinsam.
+  Reine Profilangaben liegen in `profile.ts`, damit sie nicht versehentlich auf der
+  Website landen.
+- **Dieselben Bausteine.** `Surface`, `IconWell`, `Logo` und die Ringe aus dem Hero der
+  Website — keine zweite Stilwelt. Das Blatt nutzt eine dichtere Stufe des Systems
+  (`raisedSm`, kleinere Innenabstände), weil auf A4 weniger Platz für Schatten ist.
+- **QR-Code statt URL zum Abtippen.** Führt auf die Live-Website; Modulfarbe ist die
+  Vordergrundfarbe (7,4:1 zur Fläche). Geprüft: dekodiert bei 150 und 300 dpi.
+- **Auf dem Bildschirm** wird das Blatt als Ganzes skaliert statt umgebrochen — es
+  bleibt dasselbe Dokument, auch auf dem Handy.
+
+### PDF neu erzeugen
+
+Nach jeder Änderung an Inhalten oder Layout muss das PDF neu exportiert werden:
+
+1. `npm run build && npm run preview`, dann `/portfolio.html` in Chrome öffnen
+2. Drucken → Ziel *Als PDF speichern*, Papierformat *A4*, Ränder *Keine*,
+   *Hintergrundgrafiken* **an**
+3. Datei als `public/CoreFix-Portfolio.pdf` speichern
+
+Das PDF im Repo wurde mit den **statischen** Schnitten der beiden Schriften erzeugt, damit
+sie als echte TrueType-Schriften eingebettet sind. Aus dem Browser-Druckdialog kommen die
+variablen Google-Fonts als Type3-Schriften heraus — optisch identisch, aber manche
+Druckereien bemängeln Type3 in der Vorprüfung.
 
 ## Inhaltliche Auswahl
 
@@ -133,8 +177,13 @@ seiner Absicht.
   Sobald ein Endpunkt existiert, muss nur `handleSubmit` in
   `src/components/sections/Contact.tsx` auf einen `POST` umgestellt werden — das Markup
   bleibt unverändert.
-- **Platzhalter aus dem Pitchdeck**: Musteradresse und Telefonnummer im Kontaktbereich sind
-  weiterhin Beispieldaten und müssen vor dem Livegang ersetzt werden.
+- **Fiktive Kontaktdaten.** Adresse (Platinenweg 42, 10245 Berlin) und Telefon sind
+  ausgedacht. Die Nummer stammt aus dem Block 030 23125 000–999, den die
+  Bundesnetzagentur dauerhaft für fiktive Zwecke reserviert — dort klingelt garantiert bei
+  niemandem das Telefon. Vor einem echten Livegang ersetzen, in `src/data/content.ts`.
+- **Geschäftsführung** ist im Portfolio mit Natanael und Emil angegeben. Das ist eine
+  Annahme für eine GmbH mit zwei Gründern — bei anderer Aufteilung `src/data/profile.ts`
+  anpassen.
 - **Zahlen in den FAQ-Antworten** stammen aus dem Deck (79 €/Stunde, Leistungsumfang der
   Pakete). Formulierungen zu Erreichbarkeit und Wechselablauf sind bewusst unverbindlich
   gehalten und im Erstgespräch zu konkretisieren — hier steht bewusst keine Zusage, die

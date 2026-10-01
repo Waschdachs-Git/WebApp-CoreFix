@@ -298,9 +298,12 @@ export const contact: readonly {
   value: string
   href?: string
 }[] = [
-  { icon: MapPin, label: 'Adresse', value: 'Musterstraße 1, 12345 Musterstadt' },
+  { icon: MapPin, label: 'Adresse', value: 'Platinenweg 42, 10245 Berlin' },
   { icon: Mail, label: 'E-Mail', value: 'info@corefix.de', href: 'mailto:info@corefix.de' },
-  { icon: Phone, label: 'Telefon', value: '0123 456789', href: 'tel:+49123456789' },
+  // Aus dem Block 030 23125 000–999, den die Bundesnetzagentur dauerhaft für
+  // fiktive Zwecke reserviert ("Drama Numbers"): unter dieser Nummer klingelt
+  // garantiert bei niemandem das Telefon.
+  { icon: Phone, label: 'Telefon', value: '030 23125 200', href: 'tel:+493023125200' },
   { icon: Globe, label: 'Web', value: 'www.corefix.de', href: 'https://www.corefix.de' },
 ]
 
