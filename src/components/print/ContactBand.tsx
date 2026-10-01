@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Globe, type LucideIcon } from 'lucide-react'
 import { Surface } from '@/components/ui/Surface'
 import { contact } from '@/data/content'
@@ -39,10 +40,35 @@ const sizes = {
 
 type Size = keyof typeof sizes
 
+/**
+ * Eine Adresse darf nur am Komma umbrechen: "Straße der Nationen 42," und
+ * "09111 Chemnitz" bleiben jeweils zusammen. Ein automatischer Umbruch trennte
+ * sonst die Hausnummer von der Straße.
+ */
+function AddressLines({ value }: { value: string }) {
+  const parts = value.split(', ')
+  return (
+    <>
+      {parts.map((part, i) => (
+        <Fragment key={part}>
+          {i > 0 && ' '}
+          <span className="whitespace-nowrap">
+            {part}
+            {i < parts.length - 1 && ','}
+          </span>
+        </Fragment>
+      ))}
+    </>
+  )
+}
+
 function Item({ icon: Icon, label, value, size }: { icon: LucideIcon; label: string; value: React.ReactNode; size: Size }) {
   const s = sizes[size]
+  const wraps = label === 'Adresse' || label === 'Website'
   return (
-    <li className={cn('flex min-w-0 items-center', s.item)}>
+    // Einträge, die nie umbrechen (Mail, Telefon), schrumpfen auch nie — sonst
+    // läuft ihr Text über den Nachbarn. Platz gibt nur ab, wer umbrechen darf.
+    <li className={cn('flex min-w-0 items-center', s.item, wraps ? 'shrink' : 'shrink-0')}>
       <Surface depth="raisedSm" radius="sm" className={cn('grid shrink-0 place-items-center', s.puck)}>
         <Icon className={cn('text-accent', s.icon)} strokeWidth={2} aria-hidden="true" />
       </Surface>
@@ -50,16 +76,15 @@ function Item({ icon: Icon, label, value, size }: { icon: LucideIcon; label: str
         <p className={cn('font-display font-bold uppercase tracking-[0.16em] text-muted', s.label)}>
           {label}
         </p>
-        {/* Adresse darf am Komma umbrechen, Nummer und Mailadresse nie. */}
+        {/* Adresse bricht nur am Komma um, Nummer und Mailadresse nie. */}
         <p
           className={cn(
             'font-medium leading-snug text-foreground',
             s.value,
-            label !== 'Adresse' && label !== 'Website' && 'whitespace-nowrap',
-            label === 'Adresse' && '[text-wrap:balance]',
+            !wraps && 'whitespace-nowrap',
           )}
         >
-          {value}
+          {label === 'Adresse' && typeof value === 'string' ? <AddressLines value={value} /> : value}
         </p>
       </div>
     </li>

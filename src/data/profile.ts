@@ -14,7 +14,7 @@ export const facts: readonly { label: string; value: string }[] = [
   { label: 'Gegründet', value: '2026' },
   { label: 'Rechtsform', value: 'GmbH' },
   { label: 'Stammkapital', value: '25.000 €' },
-  { label: 'Sitz', value: 'Berlin' },
+  { label: 'Sitz', value: 'Chemnitz' },
   { label: 'Zielgruppe', value: 'KMU ohne eigene IT-Abteilung' },
 ]
 
@@ -42,7 +42,7 @@ export const differentiators: readonly { icon: LucideIcon; label: string }[] = [
   { icon: Users, label: 'Vertretung bei Urlaub & Krankheit' },
   { icon: Receipt, label: 'Feste Monatspreise' },
   { icon: Headset, label: 'Remote & vor Ort' },
-  { icon: MapPin, label: 'Regional in Berlin' },
+  { icon: MapPin, label: 'Regional in Chemnitz' },
 ]
 
 /** Ziel des QR-Codes auf dem gedruckten Blatt. */

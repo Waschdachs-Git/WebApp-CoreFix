@@ -17,7 +17,7 @@ export const discounted = (amount: number) => Math.round(amount * (1 - DISCOUNT)
 
 export const opening = {
   /** Kein Datum: die Eröffnung wird als Zustand angekündigt, nicht als Termin. */
-  kicker: 'Neu in Berlin',
+  kicker: 'Neu in Chemnitz',
   headline: { lead: 'Wir sind', accent: 'online.' },
   subline: 'CoreFix ist gestartet — Ihr IT-Partner für kleine und mittelständische Unternehmen.',
   offerKicker: 'Nur zur Eröffnung',

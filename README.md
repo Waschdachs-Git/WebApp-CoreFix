@@ -128,7 +128,7 @@ Zwei Motive zur Neueröffnung, im selben Design. Vorschau beider Motive: `/eroef
   werden aus den Paketpreisen in `content.ts` berechnet; ändert sich ein Preis oder der
   Rabatt, stimmen beide Motive nach dem nächsten Export. Nur der Begleittext ist von Hand
   geschrieben und muss dann mitgeändert werden.
-- **Kein Datum.** Angekündigt wird der Zustand („Neu in Berlin“), kein Termin.
+- **Kein Datum.** Angekündigt wird der Zustand („Neu in Chemnitz“), kein Termin.
 - **Der Post ist auf 540 × 675 gestaltet** und wird mit doppelter Pixeldichte exportiert.
   So haben Schatten und Schrift die Proportionen, in denen das Bild auf dem Handy erscheint.
 
@@ -215,10 +215,12 @@ seiner Absicht.
   Sobald ein Endpunkt existiert, muss nur `handleSubmit` in
   `src/components/sections/Contact.tsx` auf einen `POST` umgestellt werden — das Markup
   bleibt unverändert.
-- **Fiktive Kontaktdaten.** Adresse (Platinenweg 42, 10245 Berlin) und Telefon sind
-  ausgedacht. Die Nummer stammt aus dem Block 030 23125 000–999, den die
-  Bundesnetzagentur dauerhaft für fiktive Zwecke reserviert — dort klingelt garantiert bei
-  niemandem das Telefon. Vor einem echten Livegang ersetzen, in `src/data/content.ts`.
+- **Kontaktdaten.** Sitz ist Chemnitz, Straße der Nationen 42, 09111 Chemnitz, Telefon
+  0371 23125 200 — beides vom Team festgelegt, zentral in `src/data/content.ts`.
+  **Achtung Telefon:** Für Chemnitz reserviert die Bundesnetzagentur keinen Nummernblock für
+  fiktive Zwecke (nur Berlin, Frankfurt, Hamburg, Köln, München; Mitteilung 148/2021). Die
+  Nummer kann daher einem echten Anschluss gehören. Ortsunabhängig reserviert und damit
+  gefahrlos druckbar wäre z. B. die Mobilnummer **0171 39200 42** (Block 0171 39200 00–99).
 - **Geschäftsführung** ist im Portfolio mit Natanael und Emil angegeben. Das ist eine
   Annahme für eine GmbH mit zwei Gründern — bei anderer Aufteilung `src/data/profile.ts`
   anpassen.
